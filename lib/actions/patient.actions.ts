@@ -45,6 +45,20 @@ export const getUser = async (userId: string) => {
     }
 }
 
+export const getPatient = async (userId: string) => {
+    try{
+        const patiens = await databases.listDocuments(
+            DATABASE_ID!,
+            PATIENT_COLLECTION_ID!,
+            [ Query.equal('userId', userId) ]
+        )
+
+        return parseStringify(patiens.documents[0])
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export const registerPatient = async({identificationDocument, ...patient}: RegisterUserParams) => {
     try{
         //upload file
@@ -57,7 +71,6 @@ export const registerPatient = async({identificationDocument, ...patient}: Regis
 
             file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile)
         }
-
         const newPatient = await databases.createDocument(
             DATABASE_ID!,
             PATIENT_COLLECTION_ID!,

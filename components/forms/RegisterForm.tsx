@@ -10,7 +10,7 @@ import SubmitButton from "../SubmitButton"
 import { useState } from "react"
 import { PatientFormValidation, UserFormValidation } from "@/lib/validation"
 import { useRouter } from "next/navigation"
-import { createUser, registerPatient } from "@/lib/actions/patient.actions"
+import { registerPatient } from "@/lib/actions/patient.actions"
 import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues } from "@/constants"
 import { Label } from "../ui/label"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
@@ -49,14 +49,14 @@ const RegisterForm = ({user}:{user: User}) => {
            const patientData = {
             ...values,
             userId: user.$id,
-            birthData: new Date(values.birthDate),
+            birthDate: new Date(values.birthDate),
             identificationDocument: formData
            }
 
            //@ts-ignore
            const patient = await registerPatient(patientData)
 
-           if(patient) router.push(`/patients/${user.$id}/new_appointment`)
+           if(patient) router.push(`/patients/${user.$id}/new-appointment`)
         }catch(error){
             console.log(error)
         }
@@ -300,7 +300,7 @@ const RegisterForm = ({user}:{user: User}) => {
                 <CustomFormField
                     fieldType={FormFieldType.CHECKBOX}
                     control={form.control}
-                    name="privacyConset"
+                    name="privacyConsent"
                     label="I acknowledge that that I have reviewed and agree to the privacy policy."
                 />
                 <SubmitButton isLoading={isLoading}>Submit and continue</SubmitButton>
