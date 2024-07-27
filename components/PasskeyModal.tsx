@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import {
     AlertDialog,
@@ -14,16 +15,32 @@ import {
     InputOTPGroup,
     InputOTPSlot,
   } from "@/components/ui/input-otp"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { decryptKey, encryptKey } from "@/lib/utils"
 
 
 const PasskeyModal = () => {
     const router = useRouter()
+    const path = usePathname()
     const [open, setOpen] = useState(true)
     const [passkey, setPasskey] = useState('')
     const [error, setError] = useState('')
+
+    const encryptedKey = typeof window !== 'undefined' ? window.localStorage.getItem('accessKey') : null
+
+    useEffect(() => {
+      const accessKey = encryptedKey && decryptKey(encryptedKey)
+      if (path){
+        if(accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY){
+          setOpen(false)
+          router.push('/admin')
+        }else{
+            setOpen(true)
+        }
+      }
+    }, [encryptKey])
 
     const closeModal = () => {
         setOpen(false)
@@ -34,7 +51,10 @@ const PasskeyModal = () => {
         e.preventDefault()
 
         if(passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY){
-            
+            const encryptedKey = encryptKey(passkey)
+
+            localStorage.setItem('accessKey', encryptedKey)
+            setOpen(false)
         }else{
             setError('Invalid passkey. Please try again')
         }
