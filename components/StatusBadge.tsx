@@ -18,9 +18,9 @@ const StatusBadge = ({ status }:{ status: Status }) => {
             className="h-fit w-3"
         />
         <p className={clsx("text-12-semibold capitalize", {
-            "bg-green-500": status === "scheduled",
-            "bg-blue-500": status === "pending",
-            "bg-red-500" : status === "cancelled"
+            "text-green-500": status === "scheduled",
+            "text-blue-500": status === "pending",
+            "text-red-500" : status === "cancelled"
         })}>
             {status}
         </p>
