@@ -27,7 +27,7 @@ const AppointmentModal = ({
     const [open, setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger>
+        <DialogTrigger asChild>
             <Button variant="ghost" className={`capitalize ${type === 'schedule' && 'text-green-500'}`}>
                 {type}
             </Button>

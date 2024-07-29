@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Form } from "../ui/form";
+import { Form } from "@/components/ui/form"
 import CustomFormField from "../CustomFormField"
 import { FormFieldType } from "@/types/FormFieldType"
 import SubmitButton from "../SubmitButton"
@@ -14,7 +14,6 @@ import { SelectItem } from "../ui/select"
 import Image from 'next/image'
 import { createAppointment, updateAppointment } from "@/lib/actions/appointment.actions"
 import { Appointment } from "@/types/appwrite.types"
-import "react-datepicker/dist/react-datepicker.css";
 
 
 type AppointmentFormProps = {
@@ -22,7 +21,7 @@ type AppointmentFormProps = {
     patientId: string
     type: "create" | "schedule" | "cancel",
     appointment?: Appointment,
-    setOpen: (open: boolean) => void
+    setOpen?: (open: boolean) => void
 }
 
 const AppointmentForm = ({
@@ -47,8 +46,8 @@ const AppointmentForm = ({
             cancellationReason: appointment?.cancellationReason || "",
         }
     })
+    
     const onSubmit = async(values: z.infer<typeof AppointmentFormValidation>) => {
-        console.log("IM SUBMITTING", {type})
         setIsLoading(true)
         let status
 
@@ -62,7 +61,6 @@ const AppointmentForm = ({
             default:
                 status = "pending"
         }
-        console.log({type})
         try{
            if(type === 'create' && patientId){
                 const appointmentData = {
@@ -76,14 +74,12 @@ const AppointmentForm = ({
                 }
 
                 const appointment = await createAppointment(appointmentData)
-                console.log(appointment)
                 if(appointment){
                     form.reset()
                     router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`)
                     setIsLoading(false)
                 }
            } else {
-            console.log('updateting appointment')
             const appointmentToUpdate = {
                 userId,
                 appointmentId: appointment?.$id!,
