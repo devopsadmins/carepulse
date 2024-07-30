@@ -74,7 +74,7 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                Sem resultados.
               </TableCell>
             </TableRow>
           )}
@@ -94,7 +94,7 @@ export function DataTable<TData, TValue>({
             height={24}
             alt="arrow"
           />
-          Previous
+          Voltar
         </Button>
         <Button
           variant="outline"
@@ -103,7 +103,7 @@ export function DataTable<TData, TValue>({
           disabled={!table.getCanNextPage()}
           className="shad-gray-btn"
         >
-          Next
+          Próximo
           <Image
             src="/assets/icons/arrow.svg"
             width={24}
