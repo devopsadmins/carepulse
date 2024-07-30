@@ -67,19 +67,19 @@ const RegisterForm = ({user}:{user: User}) => {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 flex-1">
                 <section className="space-y-4">
-                    <h1 className="header">Welcome 👋</h1>
-                    <p className="text-dark-700">Let us know more about yourself.</p>
+                    <h1 className="header">Bem vindo 👋</h1>
+                    <p className="text-dark-700">Fale um pouco mais sobre você.</p>
                 </section>
                 <section className="space-y-6">
                     <div className="mb-9 space-y-1">
-                        <h2 className="sub-header">Personal Information</h2>
+                        <h2 className="sub-header">Informações Pessoais</h2>
                     </div>
                 </section>
                 <CustomFormField
                     fieldType={FormFieldType.INPUT}
                     control={form.control}
                     name="name"
-                    label="Full Name"
+                    label="Nome completo"
                     placeholder="John Doe"
                     iconSrc="/assets/icons/user.svg"
                     iconAlt="user"
@@ -98,7 +98,7 @@ const RegisterForm = ({user}:{user: User}) => {
                         fieldType={FormFieldType.PHONE_INPUT}
                         control={form.control}
                         name="phone"
-                        label="Phone number"
+                        label="DDD + Telefone"
                         placeholder="(DDD) 91234-5678"
                     />
                 </div>
@@ -107,13 +107,13 @@ const RegisterForm = ({user}:{user: User}) => {
                         fieldType={FormFieldType.DATE_PICKER}
                         control={form.control}
                         name="birthDate"
-                        label="Date of Birth"
+                        label="Data de aniversário"
                     />
                     <CustomFormField
                         fieldType={FormFieldType.SKELETON}
                         control={form.control}
                         name="gender"
-                        label="Gender"
+                        label="Gênero"
                         renderSkeleton={(field) => (
                             <FormControl>
                                 <RadioGroup
@@ -128,7 +128,7 @@ const RegisterForm = ({user}:{user: User}) => {
                                                 id={option}
                                             />
                                             <Label htmlFor={option} className="cursor-pointer">
-                                                {option}
+                                                {option === "male" ? "Masculino" : option === "female" ? "Feminino" : "Outro"}
                                             </Label>
                                         </div>
                                     ))}
@@ -142,15 +142,15 @@ const RegisterForm = ({user}:{user: User}) => {
                     fieldType={FormFieldType.INPUT}
                     control={form.control}
                     name="address"
-                    label="Address"
-                    placeholder="14th Street, New York"
+                    label="Endereço completo"
+                    placeholder="Rua Pinheiros, 145"
                 />
                 <CustomFormField
                     fieldType={FormFieldType.INPUT}
                     control={form.control}
                     name="occupation"
-                    label="Occupation"
-                    placeholder="Sftware Enginer"
+                    label="Ocupação"
+                    placeholder="Desenvolvedor de Software"
                 />
                 </div>
                 <div className="flex flex-col gap-6 xl:flex-row">
@@ -158,28 +158,28 @@ const RegisterForm = ({user}:{user: User}) => {
                         fieldType={FormFieldType.INPUT}
                         control={form.control}
                         name="emergencyContactName"
-                        label="Emergency contact name"
-                        placeholder="Guardian's name"
+                        label="Nome para contato de emergência"
+                        placeholder="Contato de emergência"
                     />
                     <CustomFormField
                         fieldType={FormFieldType.PHONE_INPUT}
                         control={form.control}
                         name="emergencyContactNumber"
-                        label="Emergency contact number"
+                        label="Telefone do contato de emergência"
                         placeholder="(DDD) 91234-5678"
                     />
                 </div>
                 <section className="space-y-6">
                     <div className="mb-9 space-y-1">
-                        <h2 className="sub-header">Medical Information</h2>
+                        <h2 className="sub-header">Informações Médicas</h2>
                     </div>
                 </section>
                 <CustomFormField
                     fieldType={FormFieldType.SELECT}
                     control={form.control}
                     name="primaryPhysician"
-                    label="Primary Physician"
-                    placeholder="Select a physician"
+                    label="Médico principal"
+                    placeholder="Selecione um médico"
                 >
                     {Doctors.map((doctor, index) => (
                         <SelectItem key={index} value={doctor.name}>
@@ -201,14 +201,14 @@ const RegisterForm = ({user}:{user: User}) => {
                         fieldType={FormFieldType.INPUT}
                         control={form.control}
                         name="insuranceProvider"
-                        label="Insurance Provider"
-                        placeholder="BlueCross BlueShield"
+                        label="Seguro saúde"
+                        placeholder="Unimed, Porto Seguro..."
                     />
                     <CustomFormField
                         fieldType={FormFieldType.INPUT}
                         control={form.control}
                         name="insurancePolicyNumber"
-                        label="Insurance policy number"
+                        label="Numero do Seguro"
                         placeholder="ABC123456789"
                     />
                 </div>
@@ -217,14 +217,14 @@ const RegisterForm = ({user}:{user: User}) => {
                         fieldType={FormFieldType.TEXTAREA}
                         control={form.control}
                         name="allergies"
-                        label="Allergies (if any)"
-                        placeholder="Peanuts, Penicillin, Polen"
+                        label="Alergias (se tiver)"
+                        placeholder="Amendoins, Penicilina, Polen"
                     />
                     <CustomFormField
                         fieldType={FormFieldType.TEXTAREA}
                         control={form.control}
                         name="currentMedication"
-                        label="Current Medication (if any)"
+                        label="Medicamento (se tiver tomando)"
                         placeholder="Ibuprofen 200mg, Paracetamol 500mg"
                     />
                 </div>
@@ -233,28 +233,28 @@ const RegisterForm = ({user}:{user: User}) => {
                         fieldType={FormFieldType.TEXTAREA}
                         control={form.control}
                         name="familyMedicalHistory"
-                        label="Family medical history"
-                        placeholder="Mother had brain cancer, Father had heart disease"
+                        label="Historico médico na família"
+                        placeholder="Mãe com problema cardiáco, Pai diabético"
                     />
                     <CustomFormField
                         fieldType={FormFieldType.TEXTAREA}
                         control={form.control}
                         name="pastMedicalHistory"
-                        label="Past medical history"
-                        placeholder="Appendectomy, Tonsillectomy"
+                        label="Seu Historico médico"
+                        placeholder="Apendectomia, Amigdalectomia"
                     />
                 </div>
                 <section className="space-y-6">
                     <div className="mb-9 space-y-1">
-                        <h2 className="sub-header">Identification and verification</h2>
+                        <h2 className="sub-header">Verificação da Identidade</h2>
                     </div>
                 </section>
                 <CustomFormField
                     fieldType={FormFieldType.SELECT}
                     control={form.control}
                     name="identificationType"
-                    label="Identification type"
-                    placeholder="Select a identificatin type"
+                    label="Tipo de documento"
+                    placeholder="Selecione o tipo de documento"
                 >
                     {IdentificationTypes.map((type, index) => (
                         <SelectItem key={index} value={type}>
@@ -266,14 +266,14 @@ const RegisterForm = ({user}:{user: User}) => {
                     fieldType={FormFieldType.INPUT}
                     control={form.control}
                     name="identificationNumber"
-                    label="Identification number"
+                    label="Número do documento"
                     placeholder="123456789"
                 />
                 <CustomFormField
                     fieldType={FormFieldType.SKELETON}
                     control={form.control}
                     name="identificationDocument"
-                    label="Scanned copy of identification document"
+                    label="Imagem do documento"
                     renderSkeleton={(field) => (
                         <FormControl>
                             <FileUploader files={field.value} onChange={field.onChange}/>
@@ -282,26 +282,26 @@ const RegisterForm = ({user}:{user: User}) => {
                 />
                 <section className="space-y-6">
                     <div className="mb-9 space-y-1">
-                        <h2 className="sub-header">Consent and Privacy</h2>
+                        <h2 className="sub-header">Consentimento e Privacidade</h2>
                     </div>
                 </section>
                 <CustomFormField
                     fieldType={FormFieldType.CHECKBOX}
                     control={form.control}
                     name="treatmentConsent"
-                    label="I consent to received treatment for my heath condition."
+                    label="Eu dou o meu consentimento para tratar da minha saúde na CarePulse"
                 />
                 <CustomFormField
                     fieldType={FormFieldType.CHECKBOX}
                     control={form.control}
                     name="disclosureConsent"
-                    label="I consent to the use and disciosure of my heath information for treatment purpose."
+                    label="Eu autorizo a divulgação das minhas informações médicas para o propósito do tratamento."
                 />
                 <CustomFormField
                     fieldType={FormFieldType.CHECKBOX}
                     control={form.control}
                     name="privacyConsent"
-                    label="I acknowledge that that I have reviewed and agree to the privacy policy."
+                    label="Eu reconheço que revi e concordo com a política de privacidade."
                 />
                 <SubmitButton isLoading={isLoading}>Submit and continue</SubmitButton>
             </form>

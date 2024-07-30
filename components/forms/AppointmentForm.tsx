@@ -27,7 +27,7 @@ type AppointmentFormProps = {
 const AppointmentForm = ({
     userId,
     patientId,
-    type,
+    type = "create",
     appointment,
     setOpen
 }: AppointmentFormProps) => {
@@ -40,12 +40,14 @@ const AppointmentForm = ({
         resolver: zodResolver(AppointmentFormValidation),
         defaultValues: {
             primaryPhysician: appointment ? appointment?.primaryPhysician : "",
-            schedule: appointment ? new Date(appointment?.schedule) : new Date(Date.now()),
+            schedule: appointment ? new Date(appointment?.schedule!) : new Date(Date.now()),
             reason: appointment ? appointment.reason : "",
             note: appointment?.note || "",
             cancellationReason: appointment?.cancellationReason || "",
         }
     })
+
+    console.log(type)
     
     const onSubmit = async(values: z.infer<typeof AppointmentFormValidation>) => {
         setIsLoading(true)
@@ -61,6 +63,7 @@ const AppointmentForm = ({
             default:
                 status = "pending"
         }
+        
         try{
            if(type === 'create' && patientId){
                 const appointmentData = {
@@ -77,7 +80,6 @@ const AppointmentForm = ({
                 if(appointment){
                     form.reset()
                     router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`)
-                    setIsLoading(false)
                 }
            } else {
             const appointmentToUpdate = {
@@ -110,13 +112,13 @@ const AppointmentForm = ({
 
     switch (type) {
         case 'cancel':
-            buttonLabel = 'Cancel Appointment'
+            buttonLabel = 'Cancelar Consulta'
             break
         case 'schedule':
-            buttonLabel = 'Schedule Appointment'
+            buttonLabel = 'Agendar Consulta'
             break
        default:
-            buttonLabel = 'Submit Appointment'
+            buttonLabel = 'Enviar Consulta'
     }
 
     return (
@@ -124,8 +126,8 @@ const AppointmentForm = ({
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
                 {type === "create" && (
                     <section className="mb-12 space-y-4">
-                        <h1 className="header">New Appointment</h1>
-                        <p className="text-dark-700">Request a new appointment in 10 seconds</p>
+                        <h1 className="header">Nova Consulta</h1>
+                        <p className="text-dark-700">Agende uma nova consulta em apenas 10 segundos.</p>
                     </section>
                 )}
 
@@ -135,8 +137,8 @@ const AppointmentForm = ({
                             fieldType={FormFieldType.SELECT}
                             control={form.control}
                             name="primaryPhysician"
-                            label="Doctor"
-                            placeholder="Select a doctor"
+                            label="Médico"
+                            placeholder="Selecione um médico"
                         >
                             {Doctors.map((doctor, index) => (
                                 <SelectItem key={index} value={doctor.name}>
@@ -157,7 +159,7 @@ const AppointmentForm = ({
                             fieldType={FormFieldType.DATE_PICKER}
                             control={form.control}
                             name="schedule"
-                            label="Expected appointment date"
+                            label="Data da consulta"
                             showTimeSelect
                             dateFormat="dd/MM/yyyy h:mm aa"
                         />
@@ -166,15 +168,15 @@ const AppointmentForm = ({
                                 fieldType={FormFieldType.TEXTAREA}
                                 control={form.control}
                                 name="reason"
-                                label="Appointment reason"
-                                placeholder="Enter reason for appointment"
+                                label="Motivo da Consulta"
+                                placeholder="Informe o motivo da consulta"
                             />
                             <CustomFormField
                                 fieldType={FormFieldType.TEXTAREA}
                                 control={form.control}
                                 name="note"
-                                label="Notes"
-                                placeholder="Enter notes"
+                                label="Anotações"
+                                placeholder="Insira anotações"
                             />
                         </div>
                     </>
@@ -184,8 +186,8 @@ const AppointmentForm = ({
                         fieldType={FormFieldType.TEXTAREA}
                         control={form.control}
                         name="cancelationReason"
-                        label="Reason for cancellation"
-                        placeholder="Enter reason for cancellation"
+                        label="Razão do cancelamento"
+                        placeholder="Informe a razão para o cancelamento"
                     />
                 )}
 

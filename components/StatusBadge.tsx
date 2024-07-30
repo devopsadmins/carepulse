@@ -22,7 +22,7 @@ const StatusBadge = ({ status }:{ status: Status }) => {
             "text-blue-500": status === "pending",
             "text-red-500" : status === "cancelled"
         })}>
-            {status}
+            {status == "scheduled" ? "Agendado" : status === "pending" ? "Pendente" : "Cancelado"}
         </p>
     </div>
   )

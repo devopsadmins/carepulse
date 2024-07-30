@@ -21,30 +21,30 @@ const Admin = async () => {
                 className="h-8 w-fit"
             />
             </Link>
-            <p className="text-16-semibold">Admin Dashboard</p>
+            <p className="text-16-semibold">Dashboard Administrativo</p>
         </header>
         <main className='admin-main'>
             <section className="w-full space-y-4">
-                <h1 className="header">Welcome 👋</h1>
-                <p className="text-dark-700">Start the day with managing new appointments</p>
+                <h1 className="header">Bem vindo 👋</h1>
+                <p className="text-dark-700">Gerencie as novas solicitações de consulta</p>
             </section>
             <section className="admin-stat">
                 <StatCard
                    type="appointments"
                    count={appointmens.scheduledCount}
-                   label="Scheduled appointments"
+                   label="Consultas agendadas"
                    icon="/assets/icons/appointments.svg"
                 />
                 <StatCard
                    type="pending"
                    count={appointmens.pendingCount}
-                   label="Pending appointments"
+                   label="Consultas pendententes"
                    icon="/assets/icons/pending.svg"
                 />
                 <StatCard
                    type="cancelled"
                    count={appointmens.cancelledCount}
-                   label="Cancelled appointments"
+                   label="Consultas canceladas"
                    icon="/assets/icons/cancelled.svg"
                 />
             </section>

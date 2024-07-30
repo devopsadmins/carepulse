@@ -36,12 +36,12 @@ const Success = async({params: { userId }, searchParams}: SearchParamProps) => {
                     unoptimized
                 />
                 <h2 className="header mb-6 max-w-[600px] text-center">
-                    Your <span className="text-green-500">appointment request</span> has been successfully submitted!
+                    Sua <span className="text-green-500">Solicitação de consulta</span> foi enviada com sucesso!
                 </h2>
-                <p>We will be in touch shortly to confirm.</p>
+                <p>Retornaremos em breve com a confirmação.</p>
             </section>
             <section className="request-details">
-                <p>Requested appointment details:</p>
+                <p>Detalhes da consulta:</p>
                 <div className="flex items-center gap-3">
                     <Image
                         src={doctor?.image!}
@@ -63,7 +63,7 @@ const Success = async({params: { userId }, searchParams}: SearchParamProps) => {
                 </div>
             </section>
             <Button variant="outline" className="shad-primary-btn" asChild>
-                <Link href={`/patients/${userId}/new-appointment`}>New Appointment</Link>
+                <Link href={`/patients/${userId}/new-appointment`}>Nova Consulta</Link>
             </Button>
             <p className="copyright py-12">© 2024 CarePulse</p>
         </div>

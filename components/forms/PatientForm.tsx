@@ -35,25 +35,29 @@ const PatientForm = () => {
             }
             const user = await createUser(userData)
             
-            if (user) router.push(`/patients/${user.$id}/register`)
+            if (user) {
+                router.push(`/patients/${user.$id}/register`)
+                setIsLoading(false)
+            }
+            
         }catch(error){
             console.log(error)
         }
-        setIsLoading(false)
+        
     }
     
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
                 <section className="mb-12 space-y-4">
-                    <h1 className="header">Hi there 👋</h1>
-                    <p className="text-dark-700">Schedule your first appointment.</p>
+                    <h1 className="header">Olá 👋</h1>
+                    <p className="text-dark-700">Agende sua primeira consulta.</p>
                 </section>
                 <CustomFormField
                     fieldType={FormFieldType.INPUT}
                     control={form.control}
                     name="name"
-                    label="Full name"
+                    label="Nome completo"
                     placeholder="John Doe"
                     iconSrc="/assets/icons/user.svg"
                     iconAlt="user"
@@ -71,10 +75,10 @@ const PatientForm = () => {
                     fieldType={FormFieldType.PHONE_INPUT}
                     control={form.control}
                     name="phone"
-                    label="Phone number"
+                    label="DDD + Telefone"
                     placeholder="(DDD) 91234-5678"
                 />
-                <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
+                <SubmitButton isLoading={isLoading}>Iniciar</SubmitButton>
             </form>
         </Form>
     )
