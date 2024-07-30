@@ -101,7 +101,7 @@ export const updateAppointment = async ({
         const smsMessage = `
             Olá, aqui é da CarePulse.
             ${type === 'schedule'
-                ? `Sua consulta foi agendada para a data ${formatDateTime(appointment.schedule)}.`
+                ? `Sua consulta foi agendada para a data ${formatDateTime(appointment.schedule).dateTime} com o médico ${appointment.primaryPhysician}.`
                 : `Nós lamentamos informar que a sua consulta foi cancelada pela seguinte razão: ${appointment.cancellationReason}. Solicite uma nova consulta, por favor!`
             }
             }
